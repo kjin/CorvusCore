@@ -8,31 +8,19 @@ class GameView;
 class InputController;
 class Controller;
 
-class GameController : public cocos2d::Layer
+#define GAME_CONTROLLER_CREATE_FUNC(x) static x* x::create(GameState* gameState) { x* pRet = new x(); if (pRet != nullptr && pRet->init(gameState)) { pRet->autorelease(); return pRet; } delete pRet; return nullptr; }
+#define GAME_CONTROLLER_CREATE_CLASS(x) class x : public GameController { protected: bool init(GameState* gameState) override; x() {} public: GAME_CONTROLLER_CREATE_FUNC(x); };
+
+class GameController : public cocos2d::Node
 {
 private:
-	// State
-	GameState* _gameState;
-	GameView* _gameView;
-
 	// Controller
 	InputController* _inputController;
 	std::vector<Controller*> _modelControllers;
 
 	void update(float deltaTime) override;
-    
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-    
-    // implement the "static create()" method manually
-    CREATE_FUNC(GameController);
 protected:
-	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-	virtual bool init();
-
-	void setGameState(GameState* gameState);
-
-	void setGameView(GameView* gameView);
+	virtual bool init(GameState* gameState);
 
 	void addController(Controller* controller);
 };

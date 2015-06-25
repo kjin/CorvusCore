@@ -9,6 +9,7 @@ class Model;
 class BulletManager;
 
 #define GAME_STATE_CREATE_FUNC(x) CREATE_FUNC(x)
+#define GAME_STATE_CREATE_CLASS(x) class x : public GameState { protected: bool init() override; x() {} public: GAME_STATE_CREATE_FUNC(x); };
 
 class GameState : public cocos2d::Ref
 {
