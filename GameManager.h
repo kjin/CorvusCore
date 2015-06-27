@@ -2,10 +2,9 @@
 #define GAME_MANAGER_H_
 
 #include "cocos2d.h"
-
-class GameState;
-class GameView;
-class GameController;
+#include "GameState.h"
+#include "GameView.h"
+#include "GameController.h"
 
 #define GAME_MANAGER_CREATE_FUNC(x) CREATE_FUNC(x)
 #define GAME_MANAGER_CREATE_CLASS(className, gameState, gameView, gameController) class className : public GameManager { protected: bool init() override { if (GameManager::init()) { auto model = gameState::create(); setGameState(model); setGameView(gameView::create(model)); setGameController(gameController::create(model)); return true; } return false; } className() {} public: GAME_MANAGER_CREATE_FUNC(className); };

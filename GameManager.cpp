@@ -1,7 +1,4 @@
 #include "GameManager.h"
-#include "GameState.h"
-#include "GameView.h"
-#include "GameController.h"
 
 using namespace std;
 USING_NS_CC;
